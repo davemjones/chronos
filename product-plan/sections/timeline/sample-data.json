@@ -1,0 +1,462 @@
+{
+  "_meta": {
+    "models": {
+      "users": "People who create entries, manage timelines, and maintain their own vocabulary of tags.",
+      "entries": "Individual events or notes with rich content (markdown) and a date. Created by a user and optionally shared for others to include. Entry data is never duplicated — the same entry can appear on multiple timelines.",
+      "timelines": "A curated collection of entries owned by a user. The timeline owner controls which entries appear and applies their own tags to each entry independently.",
+      "tags": "Labels belonging to a specific user for organizing entries within their timelines. Tags are user-scoped, so each user maintains their own tag vocabulary."
+    },
+    "relationships": [
+      "Each Entry belongs to a User (the creator) and exists independently",
+      "Each Timeline belongs to a User (the owner)",
+      "Each Timeline contains many Entries via timelineEntries (many-to-many)",
+      "Each timelineEntry links an Entry to a Timeline with the owner's tags applied",
+      "Tags belong to a User's personal vocabulary",
+      "The same Entry can appear on multiple Timelines with different tags in each context"
+    ]
+  },
+  "currentUser": {
+    "id": "user-001",
+    "name": "Alex Morgan",
+    "avatarUrl": null
+  },
+  "users": [
+    {
+      "id": "user-001",
+      "name": "Alex Morgan",
+      "avatarUrl": null,
+      "tags": [
+        { "id": "tag-am-001", "name": "Computing", "color": "cyan" },
+        { "id": "tag-am-002", "name": "Invention", "color": "amber" },
+        { "id": "tag-am-003", "name": "Milestone", "color": "emerald" },
+        { "id": "tag-am-004", "name": "Internet", "color": "indigo" },
+        { "id": "tag-am-005", "name": "Art", "color": "pink" },
+        { "id": "tag-am-006", "name": "Architecture", "color": "slate" }
+      ],
+      "favoriteTimelines": [
+        {"id": "timeline-001"},  
+        {"id": "timeline-002"}
+      ]
+    },
+    {
+      "id": "user-002",
+      "name": "Dr. Sarah Chen",
+      "avatarUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
+      "tags": [
+        { "id": "tag-sc-001", "name": "Space", "color": "violet" },
+        { "id": "tag-sc-002", "name": "NASA", "color": "blue" },
+        { "id": "tag-sc-003", "name": "Soviet", "color": "red" },
+        { "id": "tag-sc-004", "name": "Moon", "color": "slate" },
+        { "id": "tag-sc-005", "name": "Technology", "color": "cyan" },
+        { "id": "tag-sc-006", "name": "Breakthrough", "color": "amber" }
+      ]
+    },
+    {
+      "id": "user-003",
+      "name": "Prof. James Harrison",
+      "avatarUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
+      "tags": [
+        { "id": "tag-jh-001", "name": "Military", "color": "slate" },
+        { "id": "tag-jh-002", "name": "Politics", "color": "red" },
+        { "id": "tag-jh-003", "name": "Europe", "color": "blue" },
+        { "id": "tag-jh-004", "name": "Pacific", "color": "cyan" },
+        { "id": "tag-jh-005", "name": "Turning Point", "color": "amber" }
+      ]
+    }
+  ],
+  "entries": [
+    {
+      "id": "entry-001",
+      "title": "Alan Turing's Universal Machine",
+      "date": "1936-11-12",
+      "content": "Alan Turing published *On Computable Numbers*, introducing the concept of the **Turing Machine** — a theoretical device that could simulate any algorithmic computation.\n\nThis paper laid the mathematical foundation for computer science and established the limits of what can be computed.\n\n> \"We may compare a man in the process of computing a real number to a machine.\"\n> — Alan Turing",
+      "contentType": "text",
+      "mediaUrl": null,
+      "creator": {
+        "id": "user-001",
+        "name": "Alex Morgan"
+      },
+      "isShared": true
+    },
+    {
+      "id": "entry-002",
+      "title": "ENIAC: The First General-Purpose Computer",
+      "date": "1945-12-10",
+      "content": "The **Electronic Numerical Integrator and Computer (ENIAC)** was completed at the University of Pennsylvania.\n\n## Specifications\n- Weight: 30 tons\n- Size: 1,800 square feet\n- Power: 150 kilowatts\n- Speed: 5,000 additions per second\n\nIt could calculate artillery firing tables in 30 seconds — a task that previously took 20 hours by hand.",
+      "contentType": "text",
+      "mediaUrl": null,
+      "creator": {
+        "id": "user-001",
+        "name": "Alex Morgan"
+      },
+      "isShared": true
+    },
+    {
+      "id": "entry-003",
+      "title": "The First Transistor",
+      "date": "1947-12-23",
+      "content": "Bell Labs scientists **John Bardeen**, **Walter Brattain**, and **William Shockley** demonstrated the first working transistor.\n\nThis tiny semiconductor device would eventually replace vacuum tubes, making computers smaller, faster, and more reliable.\n\n[Nobel Prize announcement](https://www.nobelprize.org/prizes/physics/1956/summary/)",
+      "contentType": "text",
+      "mediaUrl": null,
+      "creator": {
+        "id": "user-001",
+        "name": "Alex Morgan"
+      },
+      "isShared": true
+    },
+    {
+      "id": "entry-004",
+      "title": "Sputnik 1 Launch",
+      "date": "1957-10-04",
+      "content": "The Soviet Union launched **Sputnik 1**, the first artificial satellite to orbit Earth.\n\nThe 58cm diameter sphere transmitted radio pulses that could be detected by amateur radio operators worldwide, proving that humanity had entered the Space Age.\n\nThis event triggered the **Space Race** between the USSR and the United States.",
+      "contentType": "text",
+      "mediaUrl": null,
+      "creator": {
+        "id": "user-002",
+        "name": "Dr. Sarah Chen"
+      },
+      "isShared": true
+    },
+    {
+      "id": "entry-005",
+      "title": "Apollo 11 Moon Landing",
+      "date": "1969-07-20",
+      "content": "NASA astronauts **Neil Armstrong** and **Buzz Aldrin** became the first humans to walk on the Moon, while **Michael Collins** orbited above.\n\n> \"That's one small step for man, one giant leap for mankind.\"\n> — Neil Armstrong\n\nThe mission fulfilled President Kennedy's goal of landing a man on the Moon before the end of the 1960s.\n\n## Mission Stats\n- Duration: 8 days, 3 hours\n- Distance traveled: 953,054 miles\n- Lunar surface time: 21 hours, 36 minutes\n- Moon rocks collected: 47.5 pounds",
+      "contentType": "text",
+      "mediaUrl": "https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=800",
+      "creator": {
+        "id": "user-002",
+        "name": "Dr. Sarah Chen"
+      },
+      "isShared": true
+    },
+    {
+      "id": "entry-006",
+      "title": "ARPANET Goes Online",
+      "date": "1969-10-29",
+      "content": "The first message was sent over **ARPANET**, the precursor to the modern internet.\n\nThe message \"LOGIN\" was sent from UCLA to Stanford Research Institute. The system crashed after transmitting just \"LO\" — but the connection was re-established and the full message went through.\n\n![ARPANET diagram](https://upload.wikimedia.org/wikipedia/commons/b/bf/Arpanet_logical_map%2C_march_1977.png)",
+      "contentType": "text",
+      "mediaUrl": null,
+      "creator": {
+        "id": "user-001",
+        "name": "Alex Morgan"
+      },
+      "isShared": true
+    },
+    {
+      "id": "entry-007",
+      "title": "Apple II Released",
+      "date": "1977-06-10",
+      "content": "Apple released the **Apple II**, one of the first successful mass-produced personal computers.\n\nDesigned primarily by Steve Wozniak, it featured:\n- Color graphics\n- 4KB RAM (expandable to 48KB)\n- Built-in BASIC programming language\n- Eight expansion slots\n\nIt remained in production for nearly 16 years.",
+      "contentType": "text",
+      "mediaUrl": null,
+      "creator": {
+        "id": "user-001",
+        "name": "Alex Morgan"
+      },
+      "isShared": false
+    },
+    {
+      "id": "entry-008",
+      "title": "World Wide Web Invented",
+      "date": "1989-03-12",
+      "content": "**Tim Berners-Lee** submitted a proposal at CERN titled \"Information Management: A Proposal\" — the document that outlined what would become the World Wide Web.\n\nHis vision combined:\n1. Hypertext\n2. The Internet\n3. A simple markup language (HTML)\n4. A protocol for retrieving documents (HTTP)\n\nThe first website went live in 1991.",
+      "contentType": "text",
+      "mediaUrl": null,
+      "creator": {
+        "id": "user-001",
+        "name": "Alex Morgan"
+      },
+      "isShared": true
+    },
+    {
+      "id": "entry-009",
+      "title": "Hubble Space Telescope Deployed",
+      "date": "1990-04-24",
+      "content": "The **Hubble Space Telescope** was deployed from Space Shuttle Discovery, opening a new era in astronomy.\n\nPositioned above Earth's atmosphere, Hubble can capture images without atmospheric distortion, revealing the universe in unprecedented detail.\n\n### Key Discoveries\n- Precise age of the universe (~13.8 billion years)\n- Evidence for supermassive black holes\n- Deep field images showing thousands of galaxies\n- Atmospheric composition of exoplanets",
+      "contentType": "text",
+      "mediaUrl": null,
+      "creator": {
+        "id": "user-002",
+        "name": "Dr. Sarah Chen"
+      },
+      "isShared": true
+    },
+    {
+      "id": "entry-010",
+      "title": "iPhone Launch",
+      "date": "2007-06-29",
+      "content": "Apple released the first **iPhone**, fundamentally changing mobile computing and communication.\n\n> \"Every once in a while, a revolutionary product comes along that changes everything.\"\n> — Steve Jobs\n\nThe device combined a phone, widescreen iPod, and internet communicator into one touchscreen device.",
+      "contentType": "text",
+      "mediaUrl": null,
+      "creator": {
+        "id": "user-001",
+        "name": "Alex Morgan"
+      },
+      "isShared": false
+    },
+    {
+      "id": "entry-011",
+      "title": "ChatGPT Released",
+      "date": "2022-11-30",
+      "content": "OpenAI released **ChatGPT**, a conversational AI model that sparked widespread public interest in large language models.\n\nWithin 5 days, it reached 1 million users — the fastest adoption of any consumer application in history at that time.\n\n## Impact\n- Mainstream awareness of AI capabilities\n- Debates about AI in education and work\n- Rapid development of competing models\n- New questions about creativity and authorship",
+      "contentType": "text",
+      "mediaUrl": null,
+      "creator": {
+        "id": "user-001",
+        "name": "Alex Morgan"
+      },
+      "isShared": true
+    },
+    {
+      "id": "entry-012",
+      "title": "D-Day: Normandy Landings",
+      "date": "1944-06-06",
+      "content": "Allied forces launched **Operation Overlord**, the largest seaborne invasion in history, landing on the beaches of Normandy, France.\n\n## The Five Beaches\n- **Utah** — US forces\n- **Omaha** — US forces (heaviest casualties)\n- **Gold** — British forces\n- **Juno** — Canadian forces\n- **Sword** — British forces\n\nOver 156,000 troops landed on the first day, beginning the liberation of Western Europe.",
+      "contentType": "text",
+      "mediaUrl": null,
+      "creator": {
+        "id": "user-003",
+        "name": "Prof. James Harrison"
+      },
+      "isShared": true
+    },
+    {
+      "id": "entry-013",
+      "title": "Brunelleschi's Dome Completed",
+      "date": "1436-03-25",
+      "content": "**Filippo Brunelleschi** completed the dome of Florence Cathedral (Santa Maria del Fiore), a masterpiece of Renaissance engineering and architecture.\n\nThe dome remains the largest brick dome ever constructed, built without temporary wooden scaffolding using innovative techniques that Brunelleschi kept secret.\n\n## Technical Innovations\n- Double-shell construction\n- Herringbone brick pattern\n- Self-supporting structure during construction",
+      "contentType": "text",
+      "mediaUrl": null,
+      "creator": {
+        "id": "user-001",
+        "name": "Alex Morgan"
+      },
+      "isShared": false
+    }
+  ],
+  "timelines": [
+    {
+      "id": "timeline-001",
+      "title": "History of Computing",
+      "description": "Key moments in the development of computers and digital technology",
+      "owner": {
+        "id": "user-001",
+        "name": "Alex Morgan",
+        "avatarUrl": null
+      },
+      "entryCount": 9,
+      "dateRange": {
+        "start": "1936-01-01",
+        "end": "2023-11-30"
+      },
+      "topTags": ["Computing", "Invention", "Internet"],
+      "thumbnailUrl": null,
+      "isPublic": false,
+      "isOwned": true,
+      "timelineEntries": [
+        {
+          "entryId": "entry-001",
+          "tags": [
+            { "id": "tag-am-001", "name": "Computing", "color": "cyan" },
+            { "id": "tag-am-003", "name": "Milestone", "color": "emerald" }
+          ]
+        },
+        {
+          "entryId": "entry-002",
+          "tags": [
+            { "id": "tag-am-001", "name": "Computing", "color": "cyan" },
+            { "id": "tag-am-002", "name": "Invention", "color": "amber" }
+          ]
+        },
+        {
+          "entryId": "entry-003",
+          "tags": [
+            { "id": "tag-am-002", "name": "Invention", "color": "amber" },
+            { "id": "tag-am-003", "name": "Milestone", "color": "emerald" }
+          ]
+        },
+        {
+          "entryId": "entry-006",
+          "tags": [
+            { "id": "tag-am-004", "name": "Internet", "color": "indigo" },
+            { "id": "tag-am-003", "name": "Milestone", "color": "emerald" }
+          ]
+        },
+        {
+          "entryId": "entry-007",
+          "tags": [
+            { "id": "tag-am-001", "name": "Computing", "color": "cyan" },
+            { "id": "tag-am-002", "name": "Invention", "color": "amber" }
+          ]
+        },
+        {
+          "entryId": "entry-008",
+          "tags": [
+            { "id": "tag-am-004", "name": "Internet", "color": "indigo" },
+            { "id": "tag-am-002", "name": "Invention", "color": "amber" },
+            { "id": "tag-am-003", "name": "Milestone", "color": "emerald" }
+          ]
+        },
+        {
+          "entryId": "entry-010",
+          "tags": [
+            { "id": "tag-am-001", "name": "Computing", "color": "cyan" },
+            { "id": "tag-am-002", "name": "Invention", "color": "amber" }
+          ]
+        },
+        {
+          "entryId": "entry-011",
+          "tags": [
+            { "id": "tag-am-001", "name": "Computing", "color": "cyan" },
+            { "id": "tag-am-003", "name": "Milestone", "color": "emerald" }
+          ]
+        },
+        {
+          "entryId": "entry-004",
+          "tags": [
+            { "id": "tag-am-003", "name": "Milestone", "color": "emerald" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "timeline-002",
+      "title": "Space Exploration Milestones",
+      "description": "Humanity's journey beyond Earth, from the first satellites to Mars rovers",
+      "owner": {
+        "id": "user-002",
+        "name": "Dr. Sarah Chen",
+        "avatarUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
+      },
+      "entryCount": 4,
+      "dateRange": {
+        "start": "1957-10-04",
+        "end": "1990-04-24"
+      },
+      "topTags": ["Space", "NASA", "Breakthrough"],
+      "thumbnailUrl": "https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=400&h=200&fit=crop",
+      "isPublic": true,
+      "isOwned": false,
+      "timelineEntries": [
+        {
+          "entryId": "entry-004",
+          "tags": [
+            { "id": "tag-sc-001", "name": "Space", "color": "violet" },
+            { "id": "tag-sc-003", "name": "Soviet", "color": "red" },
+            { "id": "tag-sc-006", "name": "Breakthrough", "color": "amber" }
+          ]
+        },
+        {
+          "entryId": "entry-005",
+          "tags": [
+            { "id": "tag-sc-001", "name": "Space", "color": "violet" },
+            { "id": "tag-sc-002", "name": "NASA", "color": "blue" },
+            { "id": "tag-sc-004", "name": "Moon", "color": "slate" },
+            { "id": "tag-sc-006", "name": "Breakthrough", "color": "amber" }
+          ]
+        },
+        {
+          "entryId": "entry-009",
+          "tags": [
+            { "id": "tag-sc-001", "name": "Space", "color": "violet" },
+            { "id": "tag-sc-002", "name": "NASA", "color": "blue" },
+            { "id": "tag-sc-005", "name": "Technology", "color": "cyan" }
+          ]
+        },
+        {
+          "entryId": "entry-003",
+          "tags": [
+            { "id": "tag-sc-005", "name": "Technology", "color": "cyan" },
+            { "id": "tag-sc-006", "name": "Breakthrough", "color": "amber" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "timeline-003",
+      "title": "World War II Key Events",
+      "description": "Major battles, turning points, and political decisions of the Second World War",
+      "owner": {
+        "id": "user-003",
+        "name": "Prof. James Harrison",
+        "avatarUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+      },
+      "entryCount": 2,
+      "dateRange": {
+        "start": "1944-06-06",
+        "end": "1945-12-10"
+      },
+      "topTags": ["Military", "Turning Point", "Europe"],
+      "thumbnailUrl": null,
+      "isPublic": true,
+      "isOwned": false,
+      "timelineEntries": [
+        {
+          "entryId": "entry-012",
+          "tags": [
+            { "id": "tag-jh-001", "name": "Military", "color": "slate" },
+            { "id": "tag-jh-003", "name": "Europe", "color": "blue" },
+            { "id": "tag-jh-005", "name": "Turning Point", "color": "amber" }
+          ]
+        },
+        {
+          "entryId": "entry-002",
+          "tags": [
+            { "id": "tag-jh-001", "name": "Military", "color": "slate" },
+            { "id": "tag-jh-005", "name": "Turning Point", "color": "amber" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "timeline-004",
+      "title": "Renaissance Art & Architecture",
+      "description": "The flowering of art, culture, and ideas in 14th-17th century Europe",
+      "owner": {
+        "id": "user-001",
+        "name": "Alex Morgan",
+        "avatarUrl": null
+      },
+      "entryCount": 1,
+      "dateRange": {
+        "start": "1436-03-25",
+        "end": "1436-03-25"
+      },
+      "topTags": ["Art", "Architecture"],
+      "thumbnailUrl": "https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=400&h=200&fit=crop",
+      "isPublic": true,
+      "isOwned": true,
+      "timelineEntries": [
+        {
+          "entryId": "entry-013",
+          "tags": [
+            { "id": "tag-am-005", "name": "Art", "color": "pink" },
+            { "id": "tag-am-006", "name": "Architecture", "color": "slate" },
+            { "id": "tag-am-002", "name": "Invention", "color": "amber" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "timeline-005",
+      "title": "Empty Research Timeline",
+      "description": "A new timeline for gathering research on climate science",
+      "owner": {
+        "id": "user-001",
+        "name": "Alex Morgan",
+        "avatarUrl": null
+      },
+      "entryCount": 0,
+      "dateRange": {
+        "start": null,
+        "end": null
+      },
+      "topTags": [],
+      "thumbnailUrl": null,
+      "isPublic": false,
+      "isOwned": true,
+      "timelineEntries": []
+    }
+  ]
+}
