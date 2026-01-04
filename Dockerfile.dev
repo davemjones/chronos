@@ -1,0 +1,22 @@
+# Development Dockerfile for Next.js
+FROM node:20-bookworm-slim
+
+# Install basic dev dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /workspace
+
+# Set npm global directory to avoid permission issues
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+ENV PATH=$PATH:/home/node/.npm-global/bin
+
+# Switch to non-root user (provided by node image)
+USER node
+
+# Default command (overridden by devcontainer)
+CMD ["bash"]
