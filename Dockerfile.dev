@@ -1,22 +1,36 @@
 # Development Dockerfile for Next.js
 FROM node:20-bookworm-slim
 
-# Install basic dev dependencies
+# 1. Install zsh along with other dependencies as root
 RUN apt-get update && apt-get install -y \
     git \
     curl \
+    zsh \
     postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /workspace
 
-# Set npm global directory to avoid permission issues
+# Set npm global directory
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH=$PATH:/home/node/.npm-global/bin
 
-# Switch to non-root user (provided by node image)
+# 2. Switch to the node user to install Oh My Zsh in their home directory
 USER node
 
-# Default command (overridden by devcontainer)
-CMD ["bash"]
+# 3. Install Oh My Zsh (unattended mode avoids interactive prompts)
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+# Must be root to change user shell
+USER root
+RUN chsh -s /usr/bin/zsh node
+
+# Switch back to node user
+USER node
+
+# 4. Optional: Set a specific theme that highlights the git branch (default is 'robbyrussell')
+# RUN sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/' ~/.zshrc
+
+# 5. Set zsh as the default entrypoint
+CMD ["zsh"]

@@ -30,6 +30,6 @@
   "postCreateCommand": "npm install",
 
   "remoteEnv": {
-    "DATABASE_URL": "postgresql://postgres:postgres@db:5432/myapp"
+    "DATABASE_URL": "postgresql://postgres:postgres@db:5432/chronos"
   }
 }
