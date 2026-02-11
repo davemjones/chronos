@@ -3,11 +3,15 @@ FROM node:20-bookworm-slim
 
 # 1. Install zsh along with other dependencies as root
 RUN apt-get update && apt-get install -y \
+    bash \
     git \
     curl \
     zsh \
     postgresql-client \
     && rm -rf /var/lib/apt/lists/*
+
+# Install Claude path
+ENV PATH=/home/node/.local/bin:$PATH
 
 # Set working directory
 WORKDIR /workspace

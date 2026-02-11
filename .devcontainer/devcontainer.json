@@ -3,10 +3,14 @@
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspace",
+  "containerEnv": {
+    "TZ": "America/Chicago"
+  },
 
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/devcontainers/features/github-cli:1": {}
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
   },
 
   "customizations": {
@@ -16,7 +20,8 @@
         "esbenp.prettier-vscode",
         "Prisma.prisma",
         "bradlc.vscode-tailwindcss",
-        "ms-azuretools.vscode-docker"
+        "ms-azuretools.vscode-docker",
+        "Anthropic.claude-code"
       ],
       "settings": {
         "editor.formatOnSave": true,
@@ -24,10 +29,14 @@
       }
     }
   },
+  "mounts": [
+    "source=${localEnv:HOME}/.claude,target=/home/node/.claude,type=bind",
+    "source=${localEnv:HOME}/.claude.json,target=/home/node/.claude.json,type=bind"
+  ],
 
   "forwardPorts": [3000, 5432],
 
-  "postCreateCommand": "npm install",
+  "postCreateCommand": "npm install && claude install",
 
   "remoteEnv": {
     "DATABASE_URL": "postgresql://postgres:postgres@db:5432/chronos"
