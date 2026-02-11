@@ -1,0 +1,1 @@
+export { DiscoveryChat } from './DiscoveryChat'
