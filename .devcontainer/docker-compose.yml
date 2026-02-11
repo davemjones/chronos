@@ -1,11 +1,18 @@
 services:
+  # This service runs briefly to fix volume permissions
+  init-node-modules:
+    image: alpine
+    volumes:
+      - node_modules:/workspace/node_modules
+    user: root
+    command: chown -R 1000:1000 /workspace/node_modules
   app:
     build:
       context: ..
       dockerfile: Dockerfile.dev
     volumes:
       - ..:/workspace:cached
-      # - node_modules:/workspace/node_modules
+      - node_modules:/workspace/node_modules
     command: sleep infinity
     environment:
       - NODE_ENV=development

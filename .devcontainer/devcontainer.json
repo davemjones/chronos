@@ -35,7 +35,6 @@
   ],
 
   "forwardPorts": [3000, 5432],
-
   "postCreateCommand": "npm install && claude install",
 
   "remoteEnv": {
