@@ -201,3 +201,11 @@ export interface SavedSession {
   messageCount: number
   preview: string
 }
+
+// =============================================================================
+// Timeline UI Types
+// =============================================================================
+
+export type TimelineCategory = 'all' | 'public' | 'favorited' | 'owned'
+
+export type TimelineOrientation = 'horizontal' | 'vertical'

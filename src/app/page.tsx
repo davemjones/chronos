@@ -1,12 +1,49 @@
+'use client'
+
+import { useState, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
+import { TimelineBrowser } from '@/components/timeline'
+import { sampleCurrentUser, sampleTimelines } from '@/data/sample-data'
+import type { User, Timeline } from '@/types'
+
 export default function TimelinePage() {
+  const router = useRouter()
+
+  // Local state for favorites (would be persisted to backend later)
+  const [currentUser, setCurrentUser] = useState<User>(() => ({ ...sampleCurrentUser }))
+
+  const handleSelectTimeline = useCallback(
+    (timelineId: string) => {
+      router.push(`/timeline/${timelineId}`)
+    },
+    [router]
+  )
+
+  const handleToggleFavorite = useCallback((timelineId: string) => {
+    setCurrentUser((prev) => {
+      const favIds = new Set(prev.favoriteTimelines?.map((t) => t.id) || [])
+      if (favIds.has(timelineId)) {
+        return {
+          ...prev,
+          favoriteTimelines: prev.favoriteTimelines?.filter((t) => t.id !== timelineId) || [],
+        }
+      } else {
+        const timeline = sampleTimelines.find((t) => t.id === timelineId)
+        if (!timeline) return prev
+        return {
+          ...prev,
+          favoriteTimelines: [...(prev.favoriteTimelines || []), timeline],
+        }
+      }
+    })
+  }, [])
+
   return (
-    <div className="py-8">
-      <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white" style={{ fontFamily: 'var(--font-space-grotesk)' }}>
-        Timeline
-      </h1>
-      <p className="mt-2 text-slate-600 dark:text-slate-400">
-        Browse and manage your timelines.
-      </p>
-    </div>
+    <TimelineBrowser
+      currentUser={currentUser}
+      timelines={sampleTimelines}
+      onSelectTimeline={handleSelectTimeline}
+      onToggleFavorite={handleToggleFavorite}
+    />
   )
 }
