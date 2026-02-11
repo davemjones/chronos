@@ -253,3 +253,25 @@ export interface CurrentQuery {
   selectedCount: number
   totalCount: number
 }
+
+// =============================================================================
+// Collaboration Props
+// =============================================================================
+
+export interface CollaborationProps {
+  sharedTimelines: SharedTimeline[]
+  sharePermissions: SharePermission[]
+  inviteLinks: InviteLink[]
+  collaborators: Collaborator[]
+  onToggleVisibility?: (timelineId: string, visibility: Visibility) => void
+  onGrantAccess?: (timelineId: string, email: string, permission: PermissionLevel) => void
+  onRevokeAccess?: (permissionId: string) => void
+  onChangePermission?: (permissionId: string, permission: PermissionLevel) => void
+  onCreateInviteLink?: (timelineId: string, permission: PermissionLevel, expiresAt?: string, usageLimit?: number) => void
+  onRevokeInviteLink?: (linkId: string) => void
+  onCopyInviteLink?: (linkId: string) => void
+  onCloneTimeline?: (timelineId: string) => void
+  onCloneEntries?: (timelineId: string, entryIds: string[]) => void
+  onViewTimeline?: (timelineId: string) => void
+  onViewCollaborator?: (userId: string) => void
+}
