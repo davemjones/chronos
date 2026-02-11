@@ -209,3 +209,36 @@ export interface SavedSession {
 export type TimelineCategory = 'all' | 'public' | 'favorited' | 'owned'
 
 export type TimelineOrientation = 'horizontal' | 'vertical'
+
+// =============================================================================
+// Curate Types
+// =============================================================================
+
+export interface TagWithCount extends Tag {
+  count: number
+}
+
+export interface AvailableSource {
+  id: string
+  title: string
+  owner: string
+  isOwned: boolean
+  isPublic: boolean
+  entryCount: number
+}
+
+export interface QueryResultEntry {
+  id: string
+  title: string
+  date: string
+  tags: Tag[]
+  sourceTimeline: string
+  isSelected: boolean
+}
+
+export interface CurrentQuery {
+  filters: QueryFilters
+  results: QueryResultEntry[]
+  selectedCount: number
+  totalCount: number
+}
